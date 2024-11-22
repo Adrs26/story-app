@@ -1,4 +1,4 @@
-package com.bangkit.storyapp
+package com.bangkit.storyapp.ui.main
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bangkit.storyapp.R
 import com.bangkit.storyapp.databinding.ActivityMainBinding
 
 @SuppressLint("SourceLockedOrientationActivity")

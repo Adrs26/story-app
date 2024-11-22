@@ -6,16 +6,16 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.bangkit.storyapp.HomeFragment"
+        android:name="com.bangkit.storyapp.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_add_story"
-        android:name="com.bangkit.storyapp.AddStoryFragment"
+        android:name="com.bangkit.storyapp.ui.addstory.AddStoryFragment"
         tools:layout="@layout/fragment_add_story" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.bangkit.storyapp.SettingsFragment"
+        android:name="com.bangkit.storyapp.ui.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
 </navigation>

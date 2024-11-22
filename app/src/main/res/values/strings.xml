@@ -3,4 +3,10 @@
     <string name="home_title">Home</string>
     <string name="add_story_title">Add Story</string>
     <string name="settings_title">Settings</string>
+    <string name="incorrect_email_format_api">\"email\" must be a valid email</string>
+    <string name="incorrect_email_format">Email format must be valid</string>
+    <string name="incorrect_password_format_api_register">Password must be at least 8 characters long</string>
+    <string name="incorrect_password_format">Password must be at least 8 characters</string>
+    <string name="empty_input">Input data can\'t be empty</string>
+    <string name="cannot_connect_to_server">Can\'t connect to server</string>
 </resources>

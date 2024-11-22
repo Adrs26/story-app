@@ -1,19 +1,21 @@
-package com.bangkit.storyapp
+package com.bangkit.storyapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.storyapp.data.model.Story
 import com.bangkit.storyapp.databinding.ItemStoryBinding
+import com.bumptech.glide.Glide
 
-class HomeAdapter : ListAdapter<Int, HomeAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+class HomeAdapter : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
+    object : DiffUtil.ItemCallback<Story>() {
+        override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
             return oldItem == newItem
         }
     }
@@ -31,8 +33,12 @@ class HomeAdapter : ListAdapter<Int, HomeAdapter.ItemViewHolder>(
     class ItemViewHolder(
         private val itemBinding: ItemStoryBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(data: Int) {
-
+        fun bind(data: Story) {
+            itemBinding.tvItemName.text = data.name
+            Glide.with(itemView)
+                .load(data.photoUrl)
+                .fitCenter()
+                .into(itemBinding.ivItemPhoto)
         }
     }
 }
