@@ -1,20 +1,22 @@
-package com.bangkit.storyapp.common
+package com.bangkit.storyapp.ui.auth.customview
 
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
+import com.bangkit.storyapp.R
 import com.google.android.material.textfield.TextInputEditText
+import java.util.regex.Pattern
 
-class PasswordInputEditText @JvmOverloads constructor(
+class EmailInputEditText @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = android.R.attr.editTextStyle
 ) : TextInputEditText(context, attrs, defStyleAttr) {
 
-    companion object {
-        private const val MIN_PASSWORD_LENGTH = 8
-    }
+    private val emailPattern: Pattern = Pattern.compile(
+        "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+"
+    )
 
     init {
         addTextChangedListener(object : TextWatcher {
@@ -22,14 +24,14 @@ class PasswordInputEditText @JvmOverloads constructor(
             override fun afterTextChanged(s: Editable?) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                validatePassword(s)
+                validateEmail(s)
             }
         })
     }
 
-    private fun validatePassword(input: CharSequence?) {
-        error = if (input.isNullOrEmpty() || input.length < MIN_PASSWORD_LENGTH) {
-            "Password harus memiliki minimal $MIN_PASSWORD_LENGTH karakter"
+    private fun validateEmail(input: CharSequence?) {
+        error = if (input.isNullOrEmpty() || !emailPattern.matcher(input).matches()) {
+            resources.getString(R.string.invalid_email)
         } else {
             null
         }

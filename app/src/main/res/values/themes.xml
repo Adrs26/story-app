@@ -1,7 +1,8 @@
 <resources>
-    <style name="Base.Theme.StoryApp" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.StoryApp" parent="Theme.Material3.Light.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
     <style name="Theme.StoryApp" parent="Base.Theme.StoryApp" />

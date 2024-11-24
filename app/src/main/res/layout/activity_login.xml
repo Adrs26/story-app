@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_app_name"
@@ -24,6 +23,7 @@
         android:layout_height="128dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_logo"
+        android:contentDescription="@string/story_app_application_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_app_name"/>
@@ -38,14 +38,14 @@
         app:cursorColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/iv_app_logo">
 
-        <com.bangkit.storyapp.common.EmailInputEditText
+        <com.bangkit.storyapp.ui.auth.customview.EmailInputEditText
             android:id="@+id/ed_login_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Masukkan email"
+            android:hint="@string/enter_email"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -63,14 +63,14 @@
         app:cursorColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/layout_login_email">
 
-        <com.bangkit.storyapp.common.PasswordInputEditText
+        <com.bangkit.storyapp.ui.auth.customview.PasswordInputEditText
             android:id="@+id/ed_login_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Masukkan password"
+            android:hint="@string/enter_password"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -94,12 +94,12 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_medium"
-            android:text="Login"
+            android:text="@string/login"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
         <ProgressBar
-            android:id="@+id/progress_bar_login"
+            android:id="@+id/pb_login"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -116,7 +116,7 @@
         android:background="@drawable/bg_border_grey_blue"
         android:gravity="center"
         android:fontFamily="@font/inter_medium"
-        android:text="Daftar"
+        android:text="@string/register"
         android:textSize="16sp"
         android:textColor="#384959"
         app:layout_constraintBottom_toBottomOf="parent"/>

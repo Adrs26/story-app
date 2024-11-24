@@ -9,7 +9,9 @@ import com.bangkit.storyapp.data.model.Story
 import com.bangkit.storyapp.databinding.ItemStoryBinding
 import com.bumptech.glide.Glide
 
-class HomeAdapter : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
+class HomeAdapter(
+    private val onItemClickListener: OnItemClickListener
+) : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
     object : DiffUtil.ItemCallback<Story>() {
         override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
             return oldItem.id == newItem.id
@@ -30,7 +32,7 @@ class HomeAdapter : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
         holder.bind(getItem(position))
     }
 
-    class ItemViewHolder(
+    inner class ItemViewHolder(
         private val itemBinding: ItemStoryBinding
     ) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(data: Story) {
@@ -39,6 +41,14 @@ class HomeAdapter : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
                 .load(data.photoUrl)
                 .fitCenter()
                 .into(itemBinding.ivItemPhoto)
+
+            itemBinding.root.setOnClickListener {
+                onItemClickListener.onItemClick(data.id)
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(storyId: String)
     }
 }

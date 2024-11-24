@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
@@ -14,14 +13,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tv_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/inter_semi_bold"
             android:text="@string/settings_title"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -33,6 +31,7 @@
         android:layout_height="128dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/ic_account"
+        android:contentDescription="@string/user_profile_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"/>
@@ -68,59 +67,50 @@
         android:background="@color/line_color"
         app:layout_constraintTop_toBottomOf="@id/tv_user_email"/>
 
-    <ImageView
-        android:id="@+id/iv_dark_mode"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_margin="16dp"
-        android:src="@drawable/ic_dark_mode"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_line"/>
-
-    <TextView
-        android:id="@+id/tv_dark_mode"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/inter_medium"
-        android:text="Dark Mode"
-        android:textSize="14sp"
-        android:textColor="@color/black"
-        android:textAlignment="center"
-        app:layout_constraintStart_toEndOf="@id/iv_dark_mode"
-        app:layout_constraintTop_toTopOf="@id/iv_dark_mode"
-        app:layout_constraintBottom_toBottomOf="@id/iv_dark_mode" />
-
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/sw_dark_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        app:thumbTint="@color/white"
-        app:trackTint="@color/line_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/iv_dark_mode"
-        app:layout_constraintBottom_toBottomOf="@id/iv_dark_mode"/>
-
     <LinearLayout
+        android:id="@+id/action_language"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/iv_dark_mode">
+        app:layout_constraintTop_toBottomOf="@id/view_line"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
-            android:id="@+id/iv_logout"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_logout" />
+            android:src="@drawable/ic_language"
+            android:contentDescription="@string/change_language"/>
 
         <TextView
-            android:id="@+id/tv_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter_medium"
             android:layout_gravity="center_vertical"
-            android:text="Logout"
+            android:text="@string/change_language"
+            android:textSize="14sp"
+            android:textColor="@color/black" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/action_logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/action_language"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_logout"
+            android:contentDescription="@string/log_out_of_your_account_description"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_medium"
+            android:layout_gravity="center_vertical"
+            android:text="@string/logout"
             android:textSize="14sp"
             android:textColor="@color/red" />
     </LinearLayout>

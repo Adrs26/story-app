@@ -7,15 +7,33 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="com.bangkit.storyapp.ui.home.HomeFragment"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_add_story"
-        android:name="com.bangkit.storyapp.ui.addstory.AddStoryFragment"
-        tools:layout="@layout/fragment_add_story" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_detail"
+            app:destination="@id/nav_detail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
 
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.bangkit.storyapp.ui.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings"/>
+
+    <fragment
+        android:id="@+id/nav_detail"
+        android:name="com.bangkit.storyapp.ui.detail.DetailFragment"
+        tools:layout="@layout/fragment_detail">
+        <argument
+            android:name="story_id"
+            android:defaultValue=""
+            app:argType="string"/>
+    </fragment>
+
+    <dialog
+        android:id="@+id/nav_logout_dialog"
+        android:name="com.bangkit.storyapp.ui.settings.LogoutDialogFragment"
+        tools:layout="@layout/dialog_logout" />
 </navigation>

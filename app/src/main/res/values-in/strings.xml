@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Story App</string>
+    <string name="home_title">Beranda</string>
+    <string name="add_story_title">Tambah Cerita</string>
+    <string name="settings_title">Pengaturan</string>
+    <string name="empty_input">Data tidak boleh kosong</string>
+    <string name="cannot_connect_to_server">Gagal menghubungkan ke server</string>
+    <string name="incorrect_confirmation_password">Konfirmasi kata sandi salah</string>
+    <string name="empty_photo">Foto tidak boleh kosong</string>
+    <string name="post_description_hint">Deskripsi postingan kamu</string>
+    <string name="enter_email">Masukkan email</string>
+    <string name="enter_password">Masukkan kata sandi</string>
+    <string name="login">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="enter_name">Masukkan nama</string>
+    <string name="confirm_password">Konfirmasi kata sandi</string>
+    <string name="you_will_be_logged_out">Kamu akan keluar</string>
+    <string name="log_out_of_your_account">Keluar dari akun kamu?</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+    <string name="post">Postingan</string>
+    <string name="no_internet_connection">Jaringan internet tidak tersedia</string>
+    <string name="change_language">Ganti bahasa</string>
+    <string name="logout">Keluar</string>
+    <string name="user_profile_photo">Foto profil pengguna</string>
+    <string name="user_post_photo">Foto postingan pengguna</string>
+    <string name="log_out_of_your_account_description">Keluar dari akun kamu</string>
+    <string name="back_to_previous_menu">Kembali ke menu sebelumnya</string>
+    <string name="story_app_application_logo">Logo aplikasi Story App</string>
+    <string name="post_photo_from_gallery">Menambahkan foto dari galeri</string>
+    <string name="post_photo_from_camera">Menambahkan foto dari kamera</string>
+    <string name="invalid_email">Email tidak valid</string>
+    <string name="invalid_password">Kata sandi harus memiliki minimal 8 karakter</string>
+</resources>

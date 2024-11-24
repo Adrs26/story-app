@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_app_name"
@@ -27,6 +26,7 @@
         android:padding="4dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
+        android:contentDescription="@string/back_to_previous_menu"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
@@ -36,6 +36,7 @@
         android:layout_height="128dp"
         android:layout_marginTop="32dp"
         android:src="@drawable/ic_logo"
+        android:contentDescription="@string/story_app_application_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_app_name"/>
@@ -57,7 +58,7 @@
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Masukkan nama"
+            android:hint="@string/enter_name"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -76,14 +77,14 @@
         app:cursorColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/layout_register_name">
 
-        <com.bangkit.storyapp.common.EmailInputEditText
+        <com.bangkit.storyapp.ui.auth.customview.EmailInputEditText
             android:id="@+id/ed_register_email"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Masukkan email"
+            android:hint="@string/enter_email"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -101,14 +102,14 @@
         app:cursorColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/layout_register_email">
 
-        <com.bangkit.storyapp.common.PasswordInputEditText
+        <com.bangkit.storyapp.ui.auth.customview.PasswordInputEditText
             android:id="@+id/ed_register_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Masukkan password"
+            android:hint="@string/enter_password"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -126,14 +127,14 @@
         app:cursorColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/layout_register_password">
 
-        <com.bangkit.storyapp.common.PasswordInputEditText
+        <com.bangkit.storyapp.ui.auth.customview.PasswordInputEditText
             android:id="@+id/ed_register_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/bg_border_black"
             android:fontFamily="@font/inter_medium"
             android:paddingHorizontal="16dp"
-            android:hint="Konfirmasi password"
+            android:hint="@string/confirm_password"
             android:singleLine="true"
             android:maxLines="1"
             android:textColor="@color/black"
@@ -157,12 +158,12 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:fontFamily="@font/inter_medium"
-            android:text="Daftar"
+            android:text="@string/register"
             android:textSize="16sp"
             android:textColor="@color/white" />
 
         <ProgressBar
-            android:id="@+id/progress_bar_register"
+            android:id="@+id/pb_register"
             android:layout_width="30dp"
             android:layout_height="match_parent"
             android:layout_gravity="center"

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id ("androidx.navigation.safeargs")
 }
 
 android {
@@ -55,6 +56,7 @@ dependencies {
     implementation(libs.viewbindingpropertydelegate.noreflection)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.okhttp)
     implementation(libs.glide)
     implementation(libs.androidx.datastore.preferences)
     testImplementation(libs.junit)

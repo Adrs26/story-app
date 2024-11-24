@@ -13,7 +13,6 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
     private val userTokenKey = stringPreferencesKey("user_token")
     private val usernameKey = stringPreferencesKey("username")
     private val userEmailKey = stringPreferencesKey("user_email")
-    private val darkModeKey = booleanPreferencesKey("dark_mode")
 
     val isUserLogin: Flow<Boolean> = dataStore.data.map { preferences ->
         preferences[isUserLoginKey] ?: false
@@ -27,9 +26,6 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
     val userEmail: Flow<String> = dataStore.data.map { preferences ->
         preferences[userEmailKey] ?: ""
     }
-    val darkMode: Flow<Boolean> = dataStore.data.map { preferences ->
-        preferences[darkModeKey] ?: false
-    }
 
     suspend fun updateUserLoginStatusAndToken(status: Boolean, token: String) {
         dataStore.edit { preferences ->
@@ -42,12 +38,6 @@ class UserPreference(private val dataStore: DataStore<Preferences>) {
         dataStore.edit { preferences ->
             preferences[usernameKey] = username
             preferences[userEmailKey] = userEmail
-        }
-    }
-
-    suspend fun updateDarkMode(status: Boolean) {
-        dataStore.edit { preferences ->
-            preferences[darkModeKey] = status
         }
     }
 }

@@ -2,6 +2,7 @@ package com.bangkit.storyapp.ui.auth
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
@@ -22,7 +23,7 @@ import com.bangkit.storyapp.ui.main.MainActivity
 import com.bangkit.storyapp.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
-@SuppressLint("ClickableViewAccessibility")
+@SuppressLint("ClickableViewAccessibility", "SourceLockedOrientationActivity")
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private val binding by viewBinding(ActivityLoginBinding::bind)
     private val loginViewModel by lazy {
@@ -39,9 +40,14 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupOrientation()
         setupLoginButton()
         setupRegisterButton()
         setupObservers()
+    }
+
+    private fun setupOrientation() {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
     private fun setupLoginButton() {
@@ -86,24 +92,21 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                 userPreference.updateUsernameAndEmail(response.loginResult.name, userEmail)
             }
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }
 
         loginViewModel.isLoading.observe(this) { isLoading ->
             if (isLoading) {
                 binding.tvLogin.visibility = View.GONE
-                binding.progressBarLogin.visibility = View.VISIBLE
+                binding.pbLogin.visibility = View.VISIBLE
             } else {
                 binding.tvLogin.visibility = View.VISIBLE
-                binding.progressBarLogin.visibility = View.GONE
+                binding.pbLogin.visibility = View.GONE
             }
         }
 
-        loginViewModel.errorCode.observe(this) { code ->
-            if (code == 400) {
-                showToast(resources.getString(R.string.incorrect_email_format))
-            } else {
-                showToast(resources.getString(R.string.incorrect_password_format))
-            }
+        loginViewModel.errorMessage.observe(this) { message ->
+            showToast(message)
         }
 
         loginViewModel.exception.observe(this) { exception ->

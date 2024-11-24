@@ -8,7 +8,7 @@ import com.bangkit.storyapp.data.model.RegisterResponse
 import retrofit2.Response
 
 class UserRepository(private val apiService: ApiService) {
-    suspend fun userRegister(registerBody: RegisterBody): RegisterResponse {
+    suspend fun userRegister(registerBody: RegisterBody): Response<RegisterResponse> {
         return apiService.userRegister(registerBody)
     }
 

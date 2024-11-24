@@ -6,6 +6,12 @@ data class HeaderStories(
     val listStory: List<Story>
 )
 
+data class HeaderStory(
+    val error: Boolean,
+    val message: String,
+    val story: Story
+)
+
 data class Story(
     val id: String,
     val name: String,
