@@ -1,8 +1,8 @@
 package com.bangkit.storyapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -11,13 +11,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bangkit.storyapp.R
-import com.bangkit.storyapp.data.api.ApiClient
-import com.bangkit.storyapp.data.api.ApiClientBearer
+import com.bangkit.storyapp.data.remote.api.ApiClient
+import com.bangkit.storyapp.data.remote.api.ApiClientBearer
 import com.bangkit.storyapp.data.datastore.DataStoreInstance
 import com.bangkit.storyapp.data.datastore.UserPreference
 import com.bangkit.storyapp.data.repository.StoryRepository
 import com.bangkit.storyapp.data.repository.UserRepository
 import com.bangkit.storyapp.databinding.FragmentHomeBinding
+import com.bangkit.storyapp.ui.maps.MapsActivity
 import com.bangkit.storyapp.ui.viewmodel.ViewModelFactory
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupBackPressedDispatcher()
+        setupMapButton()
         setupAdapter()
         setupDataStoreObserver()
     }
@@ -53,6 +55,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         )
     }
 
+    private fun setupMapButton() {
+        binding.ibMap.setOnClickListener {
+            startActivity(Intent(requireContext(), MapsActivity::class.java))
+        }
+    }
+
     private fun setupAdapter() {
         homeAdapter = HomeAdapter(object : HomeAdapter.OnItemClickListener {
             override fun onItemClick(storyId: String) {
@@ -63,7 +71,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
         layoutManager = LinearLayoutManager(requireContext())
         binding.rvStories.layoutManager = layoutManager
-        binding.rvStories.adapter = homeAdapter
+        binding.rvStories.adapter = homeAdapter.withLoadStateFooter(
+            footer = LoadingStateAdapter { homeAdapter.retry() }
+        )
     }
 
     private fun setupDataStoreObserver() {
@@ -72,7 +82,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 this@HomeFragment.token = token
                 if (this@HomeFragment::token.isInitialized) {
                     setupViewModel(token)
-                    getStories()
                     getScrollPosition()
                     setupViewModelObservers()
                 }
@@ -88,10 +97,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         homeViewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
     }
 
-    private fun getStories() {
-        homeViewModel.getStories()
-    }
-
     private fun getScrollPosition() {
         homeViewModel.scrollPosition.observe(viewLifecycleOwner) { position ->
             binding.rvStories.scrollToPosition(position)
@@ -100,37 +105,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun setupViewModelObservers() {
         homeViewModel.stories.observe(viewLifecycleOwner) { stories ->
-            homeAdapter.submitList(stories)
+            homeAdapter.submitData(lifecycle, stories)
             binding.tvNoInternet.visibility = View.GONE
-        }
-
-        homeViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
-            if (isLoading) {
-                binding.pbHome.visibility = View.VISIBLE
-                binding.rvStories.visibility = View.GONE
-            } else {
-                binding.pbHome.visibility = View.GONE
-                binding.rvStories.visibility = View.VISIBLE
-            }
-        }
-
-        homeViewModel.exception.observe(viewLifecycleOwner) { exception ->
-            if (exception) {
-                showToast(resources.getString(R.string.cannot_connect_to_server))
-                homeViewModel.resetExceptionValue()
-
-                if (homeViewModel.stories.value.isNullOrEmpty()) {
-                    binding.tvNoInternet.visibility = View.VISIBLE
-                }
-            }
         }
     }
 
     private fun saveScrollPosition(position: Int) {
         homeViewModel.saveScrollPosition(position)
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 }

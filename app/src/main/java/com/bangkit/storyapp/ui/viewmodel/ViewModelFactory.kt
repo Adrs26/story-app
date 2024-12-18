@@ -9,6 +9,7 @@ import com.bangkit.storyapp.ui.auth.LoginViewModel
 import com.bangkit.storyapp.ui.auth.RegisterViewModel
 import com.bangkit.storyapp.ui.detail.DetailViewModel
 import com.bangkit.storyapp.ui.home.HomeViewModel
+import com.bangkit.storyapp.ui.maps.MapsViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(
@@ -31,6 +32,9 @@ class ViewModelFactory(
             }
             modelClass.isAssignableFrom(AddStoryViewModel::class.java) -> {
                 AddStoryViewModel(storyRepository) as T
+            }
+            modelClass.isAssignableFrom(MapsViewModel::class.java) -> {
+                MapsViewModel(storyRepository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

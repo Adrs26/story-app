@@ -3,6 +3,7 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
     </style>
 
     <style name="Theme.StoryApp" parent="Base.Theme.StoryApp" />

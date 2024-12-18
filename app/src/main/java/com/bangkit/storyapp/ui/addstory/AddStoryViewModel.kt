@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bangkit.storyapp.data.model.RegisterResponse
+import com.bangkit.storyapp.data.remote.model.RegisterResponse
 import com.bangkit.storyapp.data.repository.StoryRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
@@ -22,12 +22,16 @@ class AddStoryViewModel(private val storyRepository: StoryRepository) : ViewMode
     val errorMessage: LiveData<String> = _errorMessage
     val exception: LiveData<Boolean> = _exception
 
-    fun uploadStory(photo: File, description: String) {
+    fun uploadStory(photo: File, description: String, lat: Double?, lng: Double?) {
         _isLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = storyRepository.uploadStory(photo, description)
+                val response = if (lat != null && lng != null) {
+                    storyRepository.uploadStoryWithLocation(photo, description, lat, lng)
+                } else {
+                    storyRepository.uploadStory(photo, description)
+                }
 
                 if (response.isSuccessful) {
                     _response.postValue(response.body())

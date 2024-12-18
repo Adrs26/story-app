@@ -1,10 +1,10 @@
 package com.bangkit.storyapp.data.repository
 
-import com.bangkit.storyapp.data.api.ApiService
-import com.bangkit.storyapp.data.model.LoginBody
-import com.bangkit.storyapp.data.model.LoginResponse
-import com.bangkit.storyapp.data.model.RegisterBody
-import com.bangkit.storyapp.data.model.RegisterResponse
+import com.bangkit.storyapp.data.remote.api.ApiService
+import com.bangkit.storyapp.data.remote.model.LoginBody
+import com.bangkit.storyapp.data.remote.model.LoginResponse
+import com.bangkit.storyapp.data.remote.model.RegisterBody
+import com.bangkit.storyapp.data.remote.model.RegisterResponse
 import retrofit2.Response
 
 class UserRepository(private val apiService: ApiService) {

@@ -1,8 +1,10 @@
 package com.bangkit.storyapp.ui.addstory
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.MotionEvent
@@ -12,14 +14,15 @@ import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bangkit.storyapp.R
-import com.bangkit.storyapp.data.api.ApiClient
-import com.bangkit.storyapp.data.api.ApiClientBearer
 import com.bangkit.storyapp.data.datastore.DataStoreInstance
 import com.bangkit.storyapp.data.datastore.UserPreference
+import com.bangkit.storyapp.data.remote.api.ApiClient
+import com.bangkit.storyapp.data.remote.api.ApiClientBearer
 import com.bangkit.storyapp.data.repository.StoryRepository
 import com.bangkit.storyapp.data.repository.UserRepository
 import com.bangkit.storyapp.databinding.ActivityAddStoryBinding
@@ -27,6 +30,7 @@ import com.bangkit.storyapp.ui.main.MainActivity
 import com.bangkit.storyapp.ui.viewmodel.ViewModelFactory
 import com.bangkit.storyapp.util.ImageHelper
 import com.bumptech.glide.Glide
+import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -39,8 +43,10 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
     private lateinit var addStoryViewModel: AddStoryViewModel
     private lateinit var token: String
     private var imageUri: Uri? = null
+    private var lat: Double? = null
+    private var lng: Double? = null
 
-    private val launcherGallery = registerForActivityResult(
+    private val galleryLauncher = registerForActivityResult(
         ActivityResultContracts.PickVisualMedia()
     ) { uri: Uri? ->
         if (uri != null) {
@@ -49,7 +55,7 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
         }
     }
 
-    private val launcherCamera = registerForActivityResult(
+    private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicture()
     ) { isSuccess ->
         if (isSuccess) {
@@ -59,10 +65,21 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
         }
     }
 
+    private val permissionLocationLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            getCurrentLocation()
+        } else {
+            showToast(resources.getString(R.string.location_permission_denied))
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupOrientation()
         setupToolbarButton()
+        setupCheckboxLocation()
         setupAddStoryButton()
     }
 
@@ -79,6 +96,16 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
         }
         binding.ibCamera.setOnClickListener {
             startCamera()
+        }
+    }
+
+    private fun setupCheckboxLocation() {
+        binding.cbCurrentLocation.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                getCurrentLocation()
+            } else {
+                binding.cbCurrentLocation.isChecked = false
+            }
         }
     }
 
@@ -102,12 +129,12 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
     }
 
     private fun startGallery() {
-        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        galleryLauncher.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
     }
 
     private fun startCamera() {
         imageUri = ImageHelper.getImageUri(this)
-        launcherCamera.launch(imageUri!!)
+        cameraLauncher.launch(imageUri!!)
     }
 
     private fun setupGlide(uri: Uri, target: ImageView) {
@@ -115,6 +142,25 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
             .load(uri)
             .fitCenter()
             .into(target)
+    }
+
+    private fun getCurrentLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            val fusedLocationClient = LocationServices
+                .getFusedLocationProviderClient(this)
+            fusedLocationClient.lastLocation.addOnSuccessListener(this) { location ->
+                if (location != null) {
+                    lat = location.latitude
+                    lng = location.longitude
+                }
+            }
+        } else {
+            permissionLocationLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
     }
 
     private fun setupUploadImage(photo: File, description: String) {
@@ -139,7 +185,11 @@ class AddStoryActivity : AppCompatActivity(R.layout.activity_add_story) {
     }
 
     private fun uploadImage(photo: File, description: String) {
-        addStoryViewModel.uploadStory(photo, description)
+        if (lat != null && lng != null) {
+            addStoryViewModel.uploadStory(photo, description, lat, lng)
+        } else {
+            addStoryViewModel.uploadStory(photo, description, null, null)
+        }
     }
 
     private fun setupViewModelObservers() {

@@ -10,8 +10,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bangkit.storyapp.R
-import com.bangkit.storyapp.data.api.ApiClient
-import com.bangkit.storyapp.data.model.RegisterBody
+import com.bangkit.storyapp.data.remote.api.ApiClient
+import com.bangkit.storyapp.data.remote.model.RegisterBody
 import com.bangkit.storyapp.data.repository.StoryRepository
 import com.bangkit.storyapp.data.repository.UserRepository
 import com.bangkit.storyapp.databinding.ActivityRegisterBinding

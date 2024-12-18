@@ -1,4 +1,4 @@
-package com.bangkit.storyapp.data.model
+package com.bangkit.storyapp.data.remote.model
 
 data class HeaderStories(
     val error: Boolean,
@@ -18,6 +18,6 @@ data class Story(
     val description: String,
     val photoUrl: String,
     val createdAt: String,
-    val lat: Float?,
-    val lon: Float?
+    val lat: Double?,
+    val lon: Double?
 )

@@ -31,4 +31,8 @@
     <string name="post_photo_from_camera">Post photo from camera</string>
     <string name="invalid_email">Invalid email</string>
     <string name="invalid_password">Password must be at least 8 characters</string>
+    <string name="story_post_location">Story Post Location</string>
+    <string name="show_current_location">Show current location</string>
+    <string name="location_permission_denied">Location permission denied</string>
+    <string name="refresh_list_stories">Refresh list stories</string>
 </resources>

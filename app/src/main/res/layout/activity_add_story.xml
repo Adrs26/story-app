@@ -104,6 +104,25 @@
         android:scrollHorizontally="false"
         app:layout_constraintTop_toBottomOf="@id/view_line_two"/>
 
+    <CheckBox
+        android:id="@+id/cb_current_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_add"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/show_current_location"
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter_medium"
+        app:layout_constraintStart_toEndOf="@id/cb_current_location"
+        app:layout_constraintTop_toTopOf="@id/cb_current_location"
+        app:layout_constraintBottom_toBottomOf="@id/cb_current_location"/>
+
     <LinearLayout
         android:id="@+id/button_add"
         android:layout_width="match_parent"

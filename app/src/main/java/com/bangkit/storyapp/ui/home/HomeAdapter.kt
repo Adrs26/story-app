@@ -2,26 +2,16 @@ package com.bangkit.storyapp.ui.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bangkit.storyapp.data.model.Story
+import com.bangkit.storyapp.data.remote.model.Story
 import com.bangkit.storyapp.databinding.ItemStoryBinding
 import com.bumptech.glide.Glide
 
 class HomeAdapter(
     private val onItemClickListener: OnItemClickListener
-) : ListAdapter<Story, HomeAdapter.ItemViewHolder>(
-    object : DiffUtil.ItemCallback<Story>() {
-        override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
-            return oldItem == newItem
-        }
-    }
-) {
+) : PagingDataAdapter<Story, HomeAdapter.ItemViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemStoryBinding.inflate(inflater, parent, false)
@@ -29,7 +19,7 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        getItem(position)?.let { holder.bind(it) }
     }
 
     inner class ItemViewHolder(
@@ -50,5 +40,17 @@ class HomeAdapter(
 
     interface OnItemClickListener {
         fun onItemClick(storyId: String)
+    }
+
+    companion object {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Story>() {
+            override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(oldItem: Story, newItem: Story): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.bangkit.storyapp.ui.detail
+package com.bangkit.storyapp.ui.maps
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -9,21 +9,21 @@ import com.bangkit.storyapp.data.repository.StoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val storyRepository: StoryRepository) : ViewModel() {
-    private val _story = MutableLiveData<Story>()
+class MapsViewModel(private val storyRepository: StoryRepository): ViewModel() {
+    private val _stories = MutableLiveData<List<Story>>()
     private val _isLoading = MutableLiveData<Boolean>()
     private val _exception = MutableLiveData<Boolean>()
 
-    val story: LiveData<Story> = _story
+    val stories: LiveData<List<Story>> = _stories
     val isLoading: LiveData<Boolean> = _isLoading
     val exception: LiveData<Boolean> = _exception
 
-    fun getDetailStory(storyId: String) {
+    fun getStoriesLocation() {
         _isLoading.value = true
 
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                _story.postValue(storyRepository.getDetailStory(storyId).story)
+                _stories.postValue(storyRepository.getStoriesWithLocation().listStory)
                 _exception.postValue(false)
             } catch (e: Exception) {
                 _exception.postValue(true)

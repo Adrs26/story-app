@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bangkit.storyapp.data.model.LoginBody
-import com.bangkit.storyapp.data.model.LoginResponse
-import com.bangkit.storyapp.data.model.RegisterResponse
+import com.bangkit.storyapp.data.remote.model.LoginBody
+import com.bangkit.storyapp.data.remote.model.LoginResponse
+import com.bangkit.storyapp.data.remote.model.RegisterResponse
 import com.bangkit.storyapp.data.repository.UserRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers

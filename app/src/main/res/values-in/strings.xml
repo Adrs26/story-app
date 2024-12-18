@@ -32,4 +32,8 @@
     <string name="post_photo_from_camera">Menambahkan foto dari kamera</string>
     <string name="invalid_email">Email tidak valid</string>
     <string name="invalid_password">Kata sandi harus memiliki minimal 8 karakter</string>
+    <string name="story_post_location">Lokasi postingan story</string>
+    <string name="show_current_location">Tampilkan lokasi saat ini</string>
+    <string name="location_permission_denied">Izin lokasi tidak diberikan</string>
+    <string name="refresh_list_stories">Refresh daftar cerita</string>
 </resources>

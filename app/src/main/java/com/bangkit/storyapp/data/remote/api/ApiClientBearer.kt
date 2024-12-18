@@ -1,4 +1,4 @@
-package com.bangkit.storyapp.data.api
+package com.bangkit.storyapp.data.remote.api
 
 import com.bangkit.storyapp.BuildConfig
 import okhttp3.OkHttpClient

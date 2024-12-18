@@ -1,4 +1,4 @@
-package com.bangkit.storyapp.data.model
+package com.bangkit.storyapp.data.remote.model
 
 data class RegisterResponse(
     val error: Boolean,

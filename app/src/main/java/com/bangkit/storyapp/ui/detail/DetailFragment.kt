@@ -11,8 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bangkit.storyapp.R
-import com.bangkit.storyapp.data.api.ApiClient
-import com.bangkit.storyapp.data.api.ApiClientBearer
+import com.bangkit.storyapp.data.remote.api.ApiClient
+import com.bangkit.storyapp.data.remote.api.ApiClientBearer
 import com.bangkit.storyapp.data.datastore.DataStoreInstance
 import com.bangkit.storyapp.data.datastore.UserPreference
 import com.bangkit.storyapp.data.repository.StoryRepository

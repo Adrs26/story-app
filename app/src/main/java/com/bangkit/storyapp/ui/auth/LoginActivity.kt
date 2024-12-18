@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bangkit.storyapp.R
-import com.bangkit.storyapp.data.api.ApiClient
+import com.bangkit.storyapp.data.remote.api.ApiClient
 import com.bangkit.storyapp.data.datastore.DataStoreInstance
 import com.bangkit.storyapp.data.datastore.UserPreference
-import com.bangkit.storyapp.data.model.LoginBody
+import com.bangkit.storyapp.data.remote.model.LoginBody
 import com.bangkit.storyapp.data.repository.StoryRepository
 import com.bangkit.storyapp.data.repository.UserRepository
 import com.bangkit.storyapp.databinding.ActivityLoginBinding
